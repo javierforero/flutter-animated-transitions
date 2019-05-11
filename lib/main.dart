@@ -14,6 +14,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.black,
         accentColor: Color(0xFF008DFF),
+        pageTransitionsTheme: PageTransitionsTheme(
+            builders: <TargetPlatform, PageTransitionsBuilder>{
+              TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
+              TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+            }),
       ),
       home: HomePage(),
       routes: {
