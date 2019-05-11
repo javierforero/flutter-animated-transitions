@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rect_getter/rect_getter.dart';
 import 'package:transitions_flutter_app/pages/ripple_fade_transition_page.dart';
 import 'package:transitions_flutter_app/pages/slide_transition_page.dart';
+import 'package:transitions_flutter_app/route_transitions/fade-route-builder.dart';
 import 'package:transitions_flutter_app/route_transitions/slide-horizontal-transition.dart';
 
 import '../routes.dart';
@@ -76,11 +77,11 @@ class HomePage extends StatelessWidget {
           isExtended: true,
           child: Text('Ripple'),
           onPressed: () {
-//            Navigator.of(context).push(
-//              FadeRouteBuilder(
-//                page: _rippleFadePage,
-//              ),
-//            );
+            Navigator.of(context).push(
+              FadeRouteBuilder(
+                page: _rippleFadePage,
+              ),
+            );
           },
         ),
       ),
