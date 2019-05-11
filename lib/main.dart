@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:transitions_flutter_app/pages/home_page.dart';
-import 'package:transitions_flutter_app/pages/transition_page.dart';
+import 'package:transitions_flutter_app/pages/slide_transition_page.dart';
 import 'package:transitions_flutter_app/routes.dart';
 
 void main() => runApp(MyApp());
@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+        fontFamily: 'Lato',
         primaryColor: Colors.black,
         accentColor: Color(0xFF008DFF),
 //        pageTransitionsTheme: PageTransitionsTheme(
