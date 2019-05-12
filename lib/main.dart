@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Lato',
         primaryColor: Colors.black,
-        accentColor: Color(0xFF008DFF),
+        accentColor: Colors.blueAccent,
 //        pageTransitionsTheme: PageTransitionsTheme(
 //            builders: <TargetPlatform, PageTransitionsBuilder>{
 //              TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),

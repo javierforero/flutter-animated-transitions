@@ -7,10 +7,21 @@ import 'package:transitions_flutter_app/route_transitions/slide-horizontal-trans
 
 import '../routes.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  GlobalKey _rippleKey = RectGetter.createGlobalKey();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final RippleFadeTransitionPage _rippleFadePage = RippleFadeTransitionPage();
     return Scaffold(
       appBar: AppBar(
         title: Text('Transitions'),
@@ -72,15 +83,22 @@ class HomePage extends StatelessWidget {
         ),
       ),
       floatingActionButton: RectGetter(
-        key: _rippleFadePage.getKey(),
+        key: _rippleKey,
         child: FloatingActionButton(
           isExtended: true,
           child: Text('Ripple'),
           onPressed: () {
             Navigator.of(context).push(
-              FadeRouteBuilder(
-                page: _rippleFadePage,
-              ),
+              FadeRouteBuilder(customPageBuilder: (
+                BuildContext context,
+                Animation animation,
+                Animation secondaryAnimation,
+              ) {
+                return RippleFadeTransitionPage(
+                  animation: animation,
+                  rect: RectGetter.getRectFromKey(_rippleKey),
+                );
+              }),
             );
           },
         ),

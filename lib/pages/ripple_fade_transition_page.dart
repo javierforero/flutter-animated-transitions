@@ -1,23 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:rect_getter/rect_getter.dart';
 
 class RippleFadeTransitionPage extends StatefulWidget {
-  final _RippleFadeTransitionPageState _rippleState =
-      _RippleFadeTransitionPageState();
-  getKey() => _rippleState.rectGetterkey;
+  final Rect rect;
+  final Animation<double> animation;
+
+  RippleFadeTransitionPage({@required this.rect, @required this.animation});
+
   @override
-  State<StatefulWidget> createState() => _rippleState;
+  State<StatefulWidget> createState() => _RippleFadeTransitionPageState();
 }
 
 class _RippleFadeTransitionPageState extends State<RippleFadeTransitionPage>
     with TickerProviderStateMixin {
-  GlobalKey rectGetterkey = RectGetter.createGlobalKey();
-  Rect rect;
-
   @override
   void initState() {
     super.initState();
-    rect = RectGetter.getRectFromKey(rectGetterkey);
   }
 
   @override
@@ -30,7 +27,7 @@ class _RippleFadeTransitionPageState extends State<RippleFadeTransitionPage>
     return Stack(
       children: <Widget>[
         Scaffold(
-//          backgroundColor: Colors.black,
+          backgroundColor: Colors.black,
           appBar: AppBar(
             elevation: 0.0,
             leading: IconButton(
@@ -41,15 +38,22 @@ class _RippleFadeTransitionPageState extends State<RippleFadeTransitionPage>
               },
             ),
           ),
-          body: SafeArea(
-            bottom: false,
-            child: Container(
-              child: Text('fade page'),
-            ),
+          body: Stack(
+            fit: StackFit.expand,
+            children: <Widget>[
+              Positioned(
+                bottom: MediaQuery.of(context).size.height - widget.rect.bottom,
+                right: MediaQuery.of(context).size.width - widget.rect.right,
+                child: _Ripple(
+                  rect: widget.rect,
+                  animation: widget.animation,
+                ),
+              ),
+              Container(
+                child: Text('fade page'),
+              ),
+            ],
           ),
-        ),
-        _Ripple(
-          rect: this.rect,
         ),
       ],
     );
@@ -58,23 +62,27 @@ class _RippleFadeTransitionPageState extends State<RippleFadeTransitionPage>
 
 class _Ripple extends StatelessWidget {
   final Rect rect;
-  _Ripple({@required this.rect});
+  final Animation animation;
+  _Ripple({@required this.rect, this.animation});
 
   @override
   Widget build(BuildContext context) {
     if (rect == null) {
       return Container();
     }
-
-    return Positioned(
-      left: rect.left,
-      right: MediaQuery.of(context).size.width - rect.right,
-      top: rect.top,
-      bottom: MediaQuery.of(context).size.width - rect.bottom,
+    return ScaleTransition(
+      scale: animation.drive(
+        Tween(
+          begin: 1.0,
+          end: 31,
+        ),
+      ),
       child: Container(
+        height: rect.height,
+        width: rect.width,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: Theme.of(context).accentColor,
+          color: Colors.white,
         ),
       ),
     );
